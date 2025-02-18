@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+
+a{
+  color: #5d5fdf;
+}
+
+a:hover {
+  color: #250570;
+}
+
+
+
+
