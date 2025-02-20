@@ -8,17 +8,20 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const App: React.FC = () => {
 
+  const GITHUB_TOKEN = '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';
+  const { user, setUser } = useUserStore();
+  const [username, setUsername] = useState('GlayconC');
+  const [button, setButton] = useState(0)
+
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("All");
 
   const [isOpenType, setIsOpenType] = useState(false);
   const [selectedType, setSelectedType] = useState("All");
 
-  const { user, setUser } = useUserStore();
-  const [username, setUsername] = useState('GlayconC');
-  const [button, setButton] = useState(0)
-  const GITHUB_TOKEN = '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';
+  const [search, setSearch] = useState('');
 
+  
   const fetcher = (url: string) =>
     fetch(url, {
       headers: {
@@ -39,7 +42,7 @@ const App: React.FC = () => {
       return { userData, starredCount: starredData.length };
     }
   );
-
+  
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,11 +59,11 @@ const App: React.FC = () => {
         <div className="p-4 w-full max-w-sm text-center">
           {data && (
             <div className='pt-5'>
-              <div className='pl-12'>
+              <div className='pl-5'>
                 <img
                   src={data.userData.avatar_url}
                   alt="Avatar"
-                  className="w-26 h-26 rounded-full"
+                  className="w-40 h-40 rounded-full"
                 />
               </div>
               <div className="text-left pl-6 pt-3">
@@ -88,7 +91,7 @@ const App: React.FC = () => {
       {!data ? (
         <p>Loading...</p>
       ) : (
-        <div className="p-5 pt-8 w-full bg-gray-100 rounded-lg">
+        <div className="p-5 pt-8 w-full rounded-lg">
           {button === 0 && (
             <div className='flex space-x-20'>
               <button className="px-6 py-2 text-black-400 rounded-lg items-center flex text-xl border-b-3 rounded-none border-orange-500">
@@ -160,8 +163,9 @@ const App: React.FC = () => {
               type="text"
               placeholder="Search Here"
               className="border-b-2 border-gray-300 px-4 py-2 focus:outline-none w-110 text-xl placeholder-gray-600"
+              onChange={(event) => setSearch(event.target.value)}
             />
-            <div className="pl-10 pr-3 relative">
+            <div className="pl-10 pr-3 relative whitespace-nowrap">
               <button 
                 onClick={() => (setIsOpenType(!isOpenType), setIsOpen(false))}                 
                 className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
@@ -188,7 +192,7 @@ const App: React.FC = () => {
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative whitespace-nowrap">
               <button
                 onClick={() => (setIsOpen(!isOpen), setIsOpenType(false))}
                 className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition"
@@ -217,9 +221,9 @@ const App: React.FC = () => {
           </div>
           <div>
             {button === 0 && (
-              <Repos />)}
+              <Repos username={username} type={selectedType} language={selected} search={search}/>)}
             {button === 1 && (
-              <Starred />)}
+              <Starred username={username} type={selectedType} language={selected} search={search}/>)}
           </div>
 
         </div>
