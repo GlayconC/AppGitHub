@@ -9,6 +9,7 @@ Maneiras Para Melhorar o Código:
 
 - Acredito que é possível diminuir a quantidade de linhas e ajustar as chamadas de API para maneiras mais favoráveis.
 - Um exemplo, seria criar um arquivo.env para o token do github que foi necessário colocar pois ao recarregar várias vezes as páginas o github não aceitava mais requisições.
+    - No código atual não possui o token.
 - Não foi solicitado nos exemplos, mas poderia ser implementado um Search de usuário.
 
 Instruções Para Rodar Aplicação
