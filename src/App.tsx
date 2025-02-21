@@ -4,12 +4,10 @@ import useSWR from 'swr';
 import Repos from './repos';
 import Starred from './starred'
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const App: React.FC = () => {
-
-  const GITHUB_TOKEN = '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';
+ 
   const { user, setUser } = useUserStore();
+  
   const [username, setUsername] = useState('GlayconC');
   const [button, setButton] = useState(0)
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +19,7 @@ const App: React.FC = () => {
   const [infAd, setInfAd] = useState(false);
   const [showInput, setShowInput] = useState(false);
 
-
+  
   const { data, error } = useSWR(
     [
       `https://api.github.com/users/${username}`,
@@ -29,11 +27,8 @@ const App: React.FC = () => {
     ],
     async ([userUrl, starredUrl]) => {
       const fetchWithToken = (url: string) =>
-        fetch(url, {
-          headers: {
-            Authorization: `token ${GITHUB_TOKEN}`,
-          },
-        }).then((res) => res.json());
+        fetch(url
+        ).then((res) => res.json());
 
       const [userData, starredData] = await Promise.all([
         fetchWithToken(userUrl),
@@ -44,7 +39,7 @@ const App: React.FC = () => {
     }
   );
 
-
+ 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setUser(username);
