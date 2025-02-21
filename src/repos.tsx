@@ -9,18 +9,14 @@ type ReposProps = {
   search: string;
 };
 
-const GITHUB_TOKEN = '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';
 
 const Repos: React.FC<ReposProps> = ({ username, type, language, search }) => {
+
 
   const { user, setUser } = useUserStore();
 
   const fetchWithToken = (url: string) =>
-    fetch(url, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`, 
-      },
-    }).then((res) => res.json());
+    fetch(url).then((res) => res.json());
 
   const { data, error } = useSWR(
     [`https://api.github.com/users/${username}/repos`],
@@ -29,6 +25,7 @@ const Repos: React.FC<ReposProps> = ({ username, type, language, search }) => {
       return { reposData };
     }
   );
+
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
